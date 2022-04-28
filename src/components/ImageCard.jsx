@@ -1,7 +1,12 @@
 import { numberWithCommas } from "../utils/format";
 
-const ImageCard = ({ image }) => {
+const ImageCard = ({ image, searchText }) => {
     const tags = image.tags.split(', ')
+
+    const handleClick = (tag) => {
+        let newTag = tag.substring(1)
+        searchText(newTag)
+    }
 
     return <div>
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -29,7 +34,8 @@ const ImageCard = ({ image }) => {
             </div>
             <div className="px-6 py-4">
             {tags.map((tag, index) => (
-                <span key={index} className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2'>#{tag}</span>
+                <span onClick={(e) => handleClick(e.target.textContent)} key={index} className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 hover:cursor-pointer'>#{tag}
+                </span>
             ))}
             </div>
         </div>
